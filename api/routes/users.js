@@ -1,9 +1,27 @@
 import express from "express";
+import {updateUser,deleteUser,getUser,getUsers,} from "../controllers/user.js";
+import { verifyAdmin, verifyToken, verifyUser } from "../utilities/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Tova sa users")
-});
+router.get("/checkauthentication", verifyToken, (req,res,next)=>{
+  res.send("hello user, you are logged in")
+})
 
-export default router
+router.get("/checkuser/:id", verifyUser, (req,res,next)=>{
+  res.send("hello user, you are logged in and you can delete your account")
+})
+
+router.get("/checkadmin/:id", verifyAdmin, (req,res,next)=>{
+  res.send("hello admin, you are logged in and you can delete all accounts")
+})
+
+router.put("/:id", verifyUser, updateUser);
+
+router.delete("/:id", verifyUser, deleteUser);
+
+router.get("/:id", verifyUser, getUser);
+
+router.get("/", verifyAdmin, getUsers);
+
+export default router;

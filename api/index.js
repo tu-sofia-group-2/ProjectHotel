@@ -5,6 +5,7 @@ import hotelRoute from "./routes/hotels.js"
 import usersRoute from "./routes/users.js"
 import authRoute from "./routes/auth.js"
 import roomsRoute from "./routes/rooms.js"
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ const connect = async () => {
     }
 };
 
+app.use(cookieParser())
 app.use(express.json());
 
 app.get("/", (req,res) => {
