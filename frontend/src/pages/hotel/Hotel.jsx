@@ -11,17 +11,22 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
+import { AuthContext } from "../../context/AuthContext";
+import Reserve from "../../components/reserve/Reserve";
 
 const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const { data, loading, error } = useFetch(`/hotels/find/${id}`);
+  const {user} = useContext(AuthContext);
   const {dates, options} = useContext(SearchContext);
+  const navigate = useNavigate();
 
   const MILISECONDS_PER_DAY = 1000*60*60*24;
   function dayDifference(date1, date2) {
@@ -50,13 +55,21 @@ const Hotel = () => {
     setSlideNumber(newSlideNumber)
   };
 
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <Header type="list" />
       {loading ? (
         "loading"
-        ) : <div className="hotelContainer">
+        ) : (<div className="hotelContainer">
         {open && (
           <div className="slider">
             <FontAwesomeIcon
@@ -119,13 +132,14 @@ const Hotel = () => {
               <h2>
                 <b>{days * data.cheapestPrice * options.room}лв.</b> ({days} нощувки)
               </h2>
-              <button>Резервирайте сега!</button>
+              <button onClick={handleClick}>Резервирайте сега!</button>
             </div>
           </div>
         </div>
         <MailList />
         <Footer />
-      </div>}
+      </div>)}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div>
   );
 };
