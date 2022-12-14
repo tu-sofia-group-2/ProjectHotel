@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import Room from "../models/Room.js";
 import Hotel from "../models/Hotel.js";
 import { createError } from "../utilities/error.js";
@@ -63,4 +61,3 @@ export const getRooms = async (req, res, next) => {
     next(err);
   }
 };
->>>>>>> Stashed changes
