@@ -13,6 +13,7 @@ import {
 import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
+import useFetch from "../../hooks/useFetch";
 
 const Hotel = () => {
   const location = useLocation();

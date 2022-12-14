@@ -15,6 +15,7 @@ import {
   import { format } from "date-fns";
   import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
   
   const Header = ({ type }) => {
     const [destination, setDestination] = useState("");
@@ -34,6 +35,7 @@ import { SearchContext } from "../../context/SearchContext";
     });
   
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
   
     const handleOption = (name, operation) => {
       setOptions((prev) => {
@@ -85,7 +87,7 @@ import { SearchContext } from "../../context/SearchContext";
               <h1 className="headerTitle">
               Търсите къде да отседнете?
               </h1>
-              <button className="headerBtn">Вход / Регистрирай се</button>
+              {! user && <button className="headerBtn">Вход / Регистрирай се</button>}
               <div className="headerSearch">
                 <div className="headerSearchItem">
                   <FontAwesomeIcon icon={faBed} className="headerIcon" />
