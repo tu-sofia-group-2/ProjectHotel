@@ -1,22 +1,23 @@
+import { Link } from "react-router-dom";
 import "./searchItem.css";
 
 const SearchItem = () => {
   return (
     <div className="searchItem">
       <img
-        src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
+        src={item.photos[0]}
         alt=""
         className="siImg"
       />
       <div className="siDesc">
-        <h1 className="siTitle">Tower Street Apartments</h1>
-        <span className="siDistance">500m от центъра</span>
+        <h1 className="siTitle">{item.name}</h1>
+        <span className="siDistance">{item.distance}m от центъра</span>
         <span className="siTaxiOp">Безплатно такси до летището</span>
         <span className="siSubtitle">
           Студио апартамент с климатик
         </span>
         <span className="siFeatures">
-        Цяло студио • 1 баня • 21 м² 1 пълно легло
+        {item.desc}
         </span>
         <span className="siCancelOp">Безплатно анулиране </span>
         <span className="siCancelOpSubtitle">
@@ -24,14 +25,16 @@ const SearchItem = () => {
         </span>
       </div>
       <div className="siDetails">
-        <div className="siRating">
+      { item.rating && <div className="siRating">
           <span>Отлично</span>
-          <button>8.9</button>
-        </div>
+          <button>{item.rating}</button>
+        </div>}
         <div className="siDetailTexts">
-          <span className="siPrice">112лв.</span>
+          <span className="siPrice">{item.cheapestPrice}лв.</span>
           <span className="siTaxOp">Включва данъци и такси</span>
+          <Link to={`/hotels/$item._id`}>
           <button className="siCheckButton">Вижте наличността</button>
+          </Link>
         </div>
       </div>
     </div>
