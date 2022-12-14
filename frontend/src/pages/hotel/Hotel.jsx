@@ -10,32 +10,27 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
 
 const Hotel = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const { data, loading, error } = useFetch(`/hotels/find/${id}`);
+  const {dates, options} = useContext(SearchContext);
 
-  const photos = [
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707367.jpg?k=cbacfdeb8404af56a1a94812575d96f6b80f6740fd491d02c6fc3912a16d8757&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708745.jpg?k=1aae4678d645c63e0d90cdae8127b15f1e3232d4739bdf387a6578dc3b14bdfd&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707776.jpg?k=054bb3e27c9e58d3bb1110349eb5e6e24dacd53fbb0316b9e2519b2bf3c520ae&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708693.jpg?k=ea210b4fa329fe302eab55dd9818c0571afba2abd2225ca3a36457f9afa74e94&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707389.jpg?k=52156673f9eb6d5d99d3eed9386491a0465ce6f3b995f005ac71abc192dd5827&o=&hp=1",
-    },
-  ];
+  const MILISECONDS_PER_DAY = 1000*60*60*24;
+  function dayDifference(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime()-date1.getTime());
+    const diffDays = Math.ceil(timeDiff/MILISECONDS_PER_DAY);
+    return diffDays
+  }
+
+  const days = dayDifference(dates[0].endDate, dates[0].startDate)
+
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -58,7 +53,9 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
+      {loading ? (
+        "loading"
+        ) : <div className="hotelContainer">
         {open && (
           <div className="slider">
             <FontAwesomeIcon
@@ -72,7 +69,7 @@ const Hotel = () => {
               onClick={() => handleMove("l")}
             />
             <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+              <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
             </div>
             <FontAwesomeIcon
               icon={faCircleArrowRight}
@@ -83,23 +80,23 @@ const Hotel = () => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow">Резервирайте сега!</button>
-          <h1 className="hotelTitle">Tower Street Apartments</h1>
+          <h1 className="hotelTitle">{data.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
-            <span>Elton St 125 New york</span>
+            <span>{data.address}</span>
           </div>
           <span className="hotelDistance">
-           Отлична локация - 500м от центъра
+           Отлична локация - {data.distance}м от центъра
           </span>
           <span className="hotelPriceHighlight">
-            Резервирайте престой над 114лв. в този имот и вземете безплатно летищно такси
+            Резервирайте престой над {data.cheapestPrice}лв. в този имот и вземете безплатно летищно такси
           </span>
           <div className="hotelImages">
-            {photos.map((photo, i) => (
+            {data.photos?.map((photo, i) => (
               <div className="hotelImgWrapper" key={i}>
                 <img
                   onClick={() => handleOpen(i)}
-                  src={photo.src}
+                  src={photo}
                   alt=""
                   className="hotelImg"
                 />
@@ -108,28 +105,18 @@ const Hotel = () => {
           </div>
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Останете в сърцето на Града</h1>
+              <h1 className="hotelTitle">{data.title}</h1>
               <p className="hotelDesc">
-              Разположен на 5 минути пеша от Портата на Свети Флориан в Краков, Tower
-                 Street Apartments предлага помещения за настаняване с климатик и
-                 безплатен лай фай. Помещенията се предлагат с дървени подове и разполагат с a
-                 напълно оборудван кухненски бокс с микровълнова печка, телевизор с плосък екран,
-                 и самостоятелна баня с душ и сешоар. Хладилник е
-                 Предлага се и електрическа кана за чай и кафе
-                 машина. Популярните забележителности в близост до апартамента включват
-                 Сукнарията, главният пазарен площад и кулата на кметството. Най-близкия
-                 Международното летище Йоан Павел II Краков-Балице е на 16,1 км
-                 от Tower Street Apartments, като имотът предлага платен
-                 летищен трансфер.
+                {data.desc}
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Идеален за престой от 9 нощувки!</h1>
+              <h1>Идеален за престой от {days} нощувки!</h1>
               <span>
               Разположен в сърцето на Краков, този имот разполага с отлична оценка за местоположение от 9,8!
               </span>
               <h2>
-                <b>945 лв.</b> (9 нощувки)
+                <b>{days * data.cheapestPrice * options.room}лв.</b> ({days} нощувки)
               </h2>
               <button>Резервирайте сега!</button>
             </div>
@@ -137,7 +124,7 @@ const Hotel = () => {
         </div>
         <MailList />
         <Footer />
-      </div>
+      </div>}
     </div>
   );
 };
