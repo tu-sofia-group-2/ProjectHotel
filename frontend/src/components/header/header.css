@@ -1,9 +1,10 @@
 .header {
-    background-color: #003580;
+    background-color: rgba(234,161,51,255);
     color: white;
     display: flex;
     justify-content: center;
     position: relative;
+    width: 103%;
   }
   
   .headerContainer {
@@ -39,7 +40,7 @@
   }
   
   .headerBtn {
-    background-color: #0071c2;
+    background-color: rgba(207,85,51,255);
     color: white;
     font-weight: 500;
     border: none;
@@ -50,7 +51,7 @@
   .headerSearch{
     height: 30px;
     background-color: white;
-    border: 3px solid #febb02;
+    border: 3px solid rgba(207,85,51,255);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -115,8 +116,8 @@
   .optionCounterButton{
     width: 30px;
     height: 30px;
-    border: 1px solid #0071c2;
-    color: #0071c2;
+    border: 1px solid rgba(207,85,51,255);
+    color: rgba(207,85,51,255);
     cursor: pointer;
     background-color: white;
   }
@@ -124,6 +125,10 @@
   .optionCounterButton:disabled {
     cursor: not-allowed;
   }
+
+
+
+ 
   
   
 
