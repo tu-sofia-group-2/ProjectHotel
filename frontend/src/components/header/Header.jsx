@@ -76,9 +76,14 @@ import {
               <span>Такси</span>
             </div>
           </div>
+<<<<<<< Updated upstream
          
           {type !== "list" && (
             <>      
+=======
+          {type !== "list" && (
+            <>
+>>>>>>> Stashed changes
               <h1 className="headerTitle">
               Търсите къде да отседнете?
               </h1>
@@ -98,9 +103,15 @@ import {
                   <span
                     onClick={() => setOpenDate(!openDate)}
                     className="headerSearchText"
+<<<<<<< Updated upstream
                   >{`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
                     date[0].endDate,
                     "dd/MM/yyyy"
+=======
+                  >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+                    date[0].endDate,
+                    "MM/dd/yyyy"
+>>>>>>> Stashed changes
                   )}`}</span>
                   {openDate && (
                     <DateRange
@@ -199,5 +210,9 @@ import {
       </div>
     );
   };
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
   export default Header;

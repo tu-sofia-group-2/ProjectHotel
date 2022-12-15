@@ -1,4 +1,4 @@
-import "./sidebar.css"
+import "./sidebar.css";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -11,76 +11,81 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
 
 const Sidebar = () => {
-    return (
-        <div className="sidebar">
-            <div className="top">
-                <span className="logo">Wondrous</span>
-            </div>
-            <hr />
-            <div className="center">
-                <ul>
-                <p className="title">НАЧАЛО</p>
-                    <li>
-                        <DashboardIcon className="icon"  />
-                        <span>Дашборд</span>
-                    </li>
-                    <p className="title">СПИСЪЦИ</p>
-                    <li>
-                        <PersonOutlineIcon className="icon" />
-                        <span>Потребители</span>
-                    </li>
-                    <li>
-                        <StoreIcon className="icon" />
-                        <span>Продукти</span>
-                    </li>
-                    <li>
-                        <CreditCardIcon className="icon" />
-                        <span>Поръчки</span>
-                    </li>
-                    <li>
-                        <LocalShippingIcon className="icon" />
-                        <span>Доставки</span>
-                    </li>
-                    <p className="title">ПОЛЕЗНИ</p>
-                    <li>
-                        <InsertChartIcon className="icon" />
-                        <span>Статистики</span>
-                    </li>
-                    <li>
-                        <NotificationsNoneIcon className="icon" />
-                        <span>Нотификации</span>
-                    </li>
-                    <p className="title">УСЛУГИ</p>
-                    <li>
-                        <SettingsSystemDaydreamOutlinedIcon className="icon" />
-                        <span>Система</span>
-                    </li>
-                    <li>
-                        <PsychologyOutlinedIcon className="icon" />
-                        <span>Логове</span>
-                    </li>
-                    <li>
-                        <SettingsApplicationsIcon className="icon" />
-                        <span>Настройки</span>
-                    </li>
-                    <p className="title">ПОТРЕБИТЕЛ</p>
-                    <li>
-                        <AccountCircleOutlinedIcon className="icon" />
-                        <span>Профил</span>
-                    </li>
-                    <li>
-                        <ExitToAppIcon className="icon" />
-                        <span>Log out</span>
-                    </li>
+  return (
+    <div className="sidebar">
+      <div className="top">
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">lamadmin</span>
+        </Link>
+      </div>
+      <hr />
+      <div className="center">
+        <ul>
+          <p className="title">MAIN</p>
+          <li>
+            <DashboardIcon className="icon" />
+            <span>Dashboard</span>
+          </li>
+          <p className="title">LISTS</p>
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link to="/products" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Products</span>
+            </li>
+          </Link>
+          <li>
+            <CreditCardIcon className="icon" />
+            <span>Orders</span>
+          </li>
+          <li>
+            <LocalShippingIcon className="icon" />
+            <span>Delivery</span>
+          </li>
+          <p className="title">USEFUL</p>
+          <li>
+            <InsertChartIcon className="icon" />
+            <span>Stats</span>
+          </li>
+          <li>
+            <NotificationsNoneIcon className="icon" />
+            <span>Notifications</span>
+          </li>
+          <p className="title">SERVICE</p>
+          <li>
+            <SettingsSystemDaydreamOutlinedIcon className="icon" />
+            <span>System Health</span>
+          </li>
+          <li>
+            <PsychologyOutlinedIcon className="icon" />
+            <span>Logs</span>
+          </li>
+          <li>
+            <SettingsApplicationsIcon className="icon" />
+            <span>Settings</span>
+          </li>
+          <p className="title">USER</p>
+          <li>
+            <AccountCircleOutlinedIcon className="icon" />
+            <span>Profile</span>
+          </li>
+          <li>
+            <ExitToAppIcon className="icon" />
+            <span>Logout</span>
+          </li>
+        </ul>
+      </div>           
+    </div>
+  );
+};
 
-                </ul>
-            </div>
-          
-
-        </div>
-    )
-}
-
-export default Sidebar
+export default Sidebar;
