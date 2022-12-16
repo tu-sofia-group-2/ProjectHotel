@@ -35,7 +35,7 @@ const Hotel = () => {
     return diffDays
   }
 
-  const days = dayDifference(dates[0].endDate, dates[0].startDate)
+  //const days = dayDifference(dates[0].endDate, dates[0].startDate)
 
 
   const handleOpen = (i) => {
@@ -125,12 +125,12 @@ const Hotel = () => {
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Идеален за престой от {days} нощувки!</h1>
+              <h1>Идеален за престой от {3} нощувки!</h1>
               <span>
               Разположен в сърцето на Краков, този имот разполага с отлична оценка за местоположение от 9,8!
               </span>
               <h2>
-                <b>{days * data.cheapestPrice * options.room}лв.</b> ({days} нощувки)
+                <b>{3 * data.cheapestPrice * options.room}лв.</b> ({3} нощувки)
               </h2>
               <button onClick={handleClick}>Резервирайте сега!</button>
             </div>

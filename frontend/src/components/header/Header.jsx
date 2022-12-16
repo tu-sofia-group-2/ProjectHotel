@@ -60,28 +60,7 @@ import { AuthContext } from "../../context/AuthContext";
             type === "list" ? "headerContainer listMode" : "headerContainer"
           }
         >
-          <div className="headerList">
-            <div className="headerListItem active">
-              <FontAwesomeIcon icon={faBed} />
-              <span>Обекти</span>
-            </div>
-            <div className="headerListItem">
-              <FontAwesomeIcon icon={faPlane} />
-              <span>Полети</span>
-            </div>
-            <div className="headerListItem">
-              <FontAwesomeIcon icon={faCar} />
-              <span>Коли под наем</span>
-            </div>
-            <div className="headerListItem">
-              <FontAwesomeIcon icon={faBed} />
-              <span>Места да посетите</span>
-            </div>
-            <div className="headerListItem">
-              <FontAwesomeIcon icon={faTaxi} />
-              <span>Такси</span>
-            </div>
-          </div>
+          
           {type !== "list" && (
             <>
               <h1 className="headerTitle">
