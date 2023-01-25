@@ -18,7 +18,7 @@ export const modifyPassword = async(username, newPassword) => {
 
     const code = await ReeditionCode.findOne({username: username, state: USED});
     if (!code) {
-        throw createError(404, "No valid code found for username");
+        throw createError(400, "No valid code found for username");
     }
 
     ReeditionCode.findByIdAndDelete(code.id);
